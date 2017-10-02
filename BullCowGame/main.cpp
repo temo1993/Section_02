@@ -45,7 +45,7 @@ std::string GetGuess()
 
 void PlayGame()
 {
-	FBullCowGame BCGame; // Instansiate a new game
+	FBullCowGame BCGame;	// Instansiate a new game
 
 	// loop for the number of turns asking for guesses
 	for (int i = 0; i < NUMBER_OF_TURNS; ++i)
