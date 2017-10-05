@@ -21,11 +21,11 @@ public:
 	int32 GetCurrentTry() const;
 	static bool IsGameWon();
 	static bool CheckGuessValidity(FString); // TODO make a more rich return value.
-	
-	
+
+
 	FBullCowCount SubmitGuess(FString);
 
-// ^^ Please try and ignore this and focus on the Interface above ^^
+	// ^^ Please try and ignore this and focus on the Interface above ^^
 private:
 	// See coustructor for initialisation
 	int32 MyCurrentTry;

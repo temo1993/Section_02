@@ -1,7 +1,6 @@
 #include "FBullCowGame.h"
 
 
-
 FBullCowGame::FBullCowGame()
 {
 	Reset();
@@ -11,11 +10,11 @@ FBullCowGame::FBullCowGame()
 void FBullCowGame::Reset()
 {
 	constexpr int32 MAX_TRIES = 8;
-	MyCurrentTry = MAX_TRIES;
+	MyMaxTries = MAX_TRIES;
 
-	MyMaxTries = 8;
+	MyCurrentTry = 1;
 
-	const FString HIDDEN_WORD = "planet";
+	const FString HIDDEN_WORD = "ant";
 	MyHiddenWord = HIDDEN_WORD;
 }
 
@@ -48,32 +47,28 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 	// setup a return variable
 	FBullCowCount BullCowCount;
 
+	FString HiddenWord = MyHiddenWord;
 
 	// loop through all letters in the guess
 
-	const int32 HiddenWordLength = MyHiddenWord.length();
-	for (int32 i = 0; i < HiddenWordLength; i++)
+
+	for (int32 i = 0; i < HiddenWord.length(); i++)
 	{
-		// compare letters against the hidden word
-		for (int32 j = 0; j < HiddenWordLength; j++)
+		if (Guess[i] == HiddenWord[i])
 		{
-			// if they match then
-			if (Guess[i] == MyHiddenWord[i])
+			BullCowCount.Bulls++;
+			HiddenWord.erase(0, 1);
+			Guess.erase(0, 1);
+			i--;
+		}
+		else
+			for (int32 j = 0; j < HiddenWord.length(); j++)
 			{
-				// if they're in the same place
-				if (i == j)
+				if (Guess[i] == HiddenWord[j])
 				{
-					// increment bulls
-					BullCowCount.Bulls++;
-				}
-				// else
-				else
-				{
-					// increment cows
 					BullCowCount.Cows++;
 				}
 			}
-		}
 	}
 	return BullCowCount;
 }
