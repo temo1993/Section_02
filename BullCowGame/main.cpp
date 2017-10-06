@@ -13,6 +13,7 @@ using FText = std::string;
 void PrintIntro();
 FText GetValidGuess();
 void PlayGame();
+void PrintGameSummary();
 bool AskToPlayAgain();
 
 FBullCowGame BCGame; // Instansiate a new game
@@ -88,14 +89,26 @@ void PlayGame()
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << ". Cows = " << BullCowCount.Cows << "\n\n";
 	}
-	// TODO summarise game
+	PrintGameSummary();
 }
 
 bool AskToPlayAgain()
 {
-	std::cout << "Do you want to play again (y/n)? ";
+	std::cout << "Do you want to play again with the same hidden word (y/n)? ";
 	FText Response = "";
 	getline(std::cin, Response);
 	std::cout << std::endl;
 	return Response[0] == 'y' || Response[0] == 'Y';
+}
+
+void PrintGameSummary()
+{
+	if (BCGame.IsGameWon())
+	{
+		std::cout << "WELL DONE - YOU WON!\n";
+	}
+	else
+	{
+		std::cout << "Better luck next time!\n";
+	}
 }
