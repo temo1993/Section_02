@@ -1,5 +1,6 @@
 #include "FBullCowGame.h"
 #include <map>
+#include <cctype>
 #define TMap std::map
 
 
@@ -30,24 +31,33 @@ bool FBullCowGame::IsGameWon() const
 	return bGameIsWon;
 }
 
+bool FBullCowGame::IsLowercase(FString Word) const
+{
+	for (auto Letter : Word)
+	{
+		if (!islower(Letter))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
 	if (!IsIsogram(Guess)) // if the guess isn't an isogram
 	{
 		return EGuessStatus::Not_Isogram;
 	}
-	else if (false)
+	if (!IsLowercase(Guess))
 	{
-		return EGuessStatus::Not_Lowercase; // TODO write function
+		return EGuessStatus::Not_Lowercase;
 	}
-	else if (GetHiddenWordLength() != Guess.length())
+	if (GetHiddenWordLength() != Guess.length())
 	{
 		return EGuessStatus::Wrong_Length;
 	}
-	else
-	{
-		return EGuessStatus::OK;
-	}
+	return EGuessStatus::OK;
 }
 
 int32 FBullCowGame::GetCurrentTry() const
