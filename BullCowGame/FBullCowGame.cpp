@@ -1,29 +1,28 @@
+#pragma once
 #include "FBullCowGame.h"
 #include <map>
 #include <cctype>
-#define TMap std::map
+#define TMap std::map // To make syntax Unreal friendly
 
 
-FBullCowGame::FBullCowGame()
+FBullCowGame::FBullCowGame() // Default constructor
 {
 	Reset();
 }
 
-
 void FBullCowGame::Reset()
 {
-	constexpr int32 MAX_TRIES = 8;
-	const FString HIDDEN_WORD = "planet";
+	const FString HIDDEN_WORD = "planet"; // This MUST be an isogram
 
 	MyCurrentTry = 1;
-	MyMaxTries = MAX_TRIES;
 	MyHiddenWord = HIDDEN_WORD;
 	bGameIsWon = false;
 }
 
 int32 FBullCowGame::GetMaxTries() const
 {
-	return MyMaxTries;
+	TMap<int32, int32> WordLengthToMaxTries{{3,4}, {4,7}, {5,10}, {6,16}, {7,20}};
+	return WordLengthToMaxTries[MyHiddenWord.length()];
 }
 
 bool FBullCowGame::IsGameWon() const
